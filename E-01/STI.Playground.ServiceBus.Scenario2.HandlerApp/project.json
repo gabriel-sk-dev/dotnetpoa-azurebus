@@ -1,0 +1,59 @@
+{
+  "dependencies": {
+    "MassTransit.AzureServiceBus": "3.5.7",
+    "MassTransit.Unity": "3.5.7",
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0",
+    "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
+    "Microsoft.Extensions.Logging.Console": "1.0.0",
+    "Unity": "4.0.1"
+  },
+
+  "tools": {
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
+  },
+
+  "frameworks": {
+    "net461": {
+      "dependencies": {
+        "STI.Playground.ServiceBus.Notification.Application": {
+          "target": "project"
+        },
+        "STI.Playground.ServiceBus.Scenario2.Application": {
+          "target": "project"
+        },
+        "STI.Playground.ServiceBus.Scenario2.Infra": {
+          "target": "project"
+        },
+        "STI.Playground.ServiceBus.Scenario2.Infra.AzureBus": {
+          "target": "project"
+        },
+        "STI.Playground.ServiceBus.Scenario2.Infra.Contracts": {
+          "target": "project"
+        },
+        "STI.Playground.ServiceBus.Scenario2.Infra.SignalR": {
+          "target": "project"
+        },
+        "STI.Playground.ServiceBus.Taxes.Application": {
+          "target": "project"
+        }
+      }
+    }
+  },
+
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true
+  },
+
+  "publishOptions": {
+    "include": [
+      "wwwroot",
+      "web.config"
+    ]
+  },
+
+  "scripts": {
+    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
+  }
+}

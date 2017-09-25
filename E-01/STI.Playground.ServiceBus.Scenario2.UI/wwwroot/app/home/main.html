@@ -1,0 +1,84 @@
+﻿<div layout="column">
+    <h1 flex class="md-headline">MyApp - Azure Service Bus example</h1>
+
+    <section class="crud" layout layout-wrap layout-align="center">
+        <div class="container" ng-show="vm.queryInProgress">
+            <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+            <div class="bottom-block">
+                <span>Querying person data</span>
+            </div>
+        </div>
+        <md-card ng-hide="vm.queryInProgress">
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">{{vm.user.name.lastName}}, {{vm.user.name.firstName}}</span>
+                    <span class="md-subhead">{{vm.user.publicId}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Change address</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-content layout-padding>
+                    <form name="registerForm">
+                        <md-input-container class="md-block">
+                            <label>Address</label>
+                            <input ng-model="vm.user.homeAddress.street1">
+                        </md-input-container>
+
+                        <md-input-container md-no-float class="md-block">
+                            <input ng-model="vm.user.homeAddress.street2" placeholder="Address 2">
+                        </md-input-container>
+
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>City</label>
+                                <input ng-model="vm.user.homeAddress.city">
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>State</label>
+                                <md-select ng-model="vm.user.homeAddress.state">
+                                    <md-option ng-repeat="state in vm.states" value="{{state.abbrev}}">
+                                        {{state.abbrev}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Postal Code</label>
+                                <input name="postalCode" ng-model="vm.user.homeAddress.zipCode" placeholder="95000000"
+                                       required ng-pattern="/^[0-9]{8}$/" md-maxlength="8">
+
+                                <div ng-messages="registerForm.postalCode.$error" role="alert" multiple>
+                                    <div ng-message="required" class="my-message">
+                                        You must supply a postal code.
+                                    </div>
+                                    <div ng-message="pattern" class="my-message">
+                                        That doesn't look like a valid postal
+                                        code.
+                                    </div>
+                                    <div ng-message="md-maxlength" class="my-message">
+                                        Use only 5 digits
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </form>
+                </md-content>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-click="vm.save(vm.user.homeAddress)" ng-hide="vm.waintCommand">Salvar</md-button>
+
+                <div class="container" ng-show="vm.waintCommand">
+                    <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+                    <div class="bottom-block">
+                        <span>Saving address...</span>
+                    </div>
+                </div>
+            </md-card-actions>
+        </md-card>
+    </section>
+</div>
